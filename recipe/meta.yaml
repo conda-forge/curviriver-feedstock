@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/curviriver-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/curviriver-{{ version }}.tar.gz
   sha256: 8693a816d65b18c79efc843bbaafaf4bcf7c50e1e2b713e813fe27ffa075cc4e
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.9
+    - python {{ python_min }}
     - setuptools >=42
     - setuptools-scm >=7
     - pip
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - cytoolz
     - geopandas >=0.12
     - networkx >=2.5
@@ -39,6 +39,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://curviriver.readthedocs.io
